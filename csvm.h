@@ -20,18 +20,22 @@ void zwolnij_matrix();
 
 CMatrix *generuj_losowa_matrix();
 
-void wyswietl_matrix();
+void wyswietl_matrix(CMatrix *arr);
 
-void modyifkuj_matrix();
+void podsumuj_matrix(CMatrix *mat);
 
-void podsumuj_matrix();
+void zwolnij_matrix(CMatrix *mat);
 
-void zwolnij_matrix(CMatrix *arr);
+int modyfikuj_matrix(CMatrix* mat);
 
-void dodaj_wiersz();
+void dodaj_wiersz(CMatrix *mat);
 
-void usun_wiersz();
+void usun_wiersz(CMatrix *mat);
 
-void zmien_losowa_wartosc();
+void zmien_losowa_wartosc(CMatrix *arr);
 
-void usun_kolumne();
+void usun_kolumne(CMatrix *mat);
+
+void zwolnij_vector(CMatrix *mat);
+
+CVector *alokuj_vector(int size);
