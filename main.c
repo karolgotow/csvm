@@ -1,18 +1,13 @@
-#include "csvm.h"
+//gcc main.c csvm.c -o mainc		<-tak kompilujemy
+//./mainc				<-tak uruchomjemy
+
+#include "csvm.h" //<-main.c wspoldziei naglowki tutaj
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 // gotowe części kodu
 // Definicje stałych dla granic macierzy
-#define MIN_ROWS 2
-#define MAX_ROWS 10
-#define MIN_COLS 2
-#define MAX_COLS 10
-
-
-
-
 
 int generuj_losowa(int min, int max) {
     if (min > max) return min;
@@ -58,6 +53,8 @@ void wyswietl_menu() {
     printf("2. Wyswietl aktualna CMatrix\n");
     printf("3. Modyfikuj CMatrix (Losowa operacja)\n");
     printf("4. Podsumuj CMatrix (Suma elementow)\n");
+    printf("5. Zapisz CMatrix do pliku\n");
+    printf("6. Wczytaj CMatrix z pliku\n");
     printf("0. Wyjscie i zwolnienie pamieci\n");
     printf("Wybierz opcje: ");
 }
@@ -77,9 +74,9 @@ int main() {
             choice = -1;
             continue;
         }
-
+	choice = (menu_option)choice; //rzutowanie dla kompilatora ale bez potrzeby tutaj raczej
         switch (choice) {
-        case 1:
+        case MENU_GENERUJ:
             // Zwalniamy stara macierz przed alokacja nowej
             if (my_matrix != NULL) {
                 zwolnij_matrix(my_matrix);
@@ -91,24 +88,39 @@ int main() {
                 printf("[SUKCES] Macierz wygenerowana. Rozmiar: %d wierszy.\n", my_matrix->num_vectors);
                 wyswietl_matrix(my_matrix);
             }
+	    printf("---------------------------\n");
             break;
 
-        case 2:
+        case MENU_WYSWIETL:
             wyswietl_matrix(my_matrix);
+	    printf("---------------------------\n");
             break;
 
-        case 3:
+        case MENU_MODYFIKUJ:
             if (modyfikuj_matrix(my_matrix)) {
                 printf("\n[SUKCES] Macierz zmodyfikowana. Stan po operacji:\n");
                 wyswietl_matrix(my_matrix);
             }
+	    printf("---------------------------\n");
             break;
 
-        case 4:
+        case MENU_PODSUMUJ:
             podsumuj_matrix(my_matrix);
+	    printf("---------------------------\n");
             break;
 
-        case 0:
+        case MENU_ZAPISZ:
+            zapisz_matrix_do_pliku(my_matrix);
+	    printf("---------------------------\n");
+            break;
+
+        case MENU_WCZYTAJ:
+            my_matrix = wczytaj_matrix_z_pliku();
+	 wyswietl_matrix(my_matrix);
+	    printf("---------------------------\n");
+            break;
+
+        case MENU_KONIEC:
             printf("\n[WYJSCIE] Zwalnianie pamieci i zakonczenie programu.\n");
             break;
 
